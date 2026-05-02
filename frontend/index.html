@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Life — Registro de Mascotas</title>
+  <meta name="description" content="Sistema de registro de mascotas y seguimiento de esterilización canina. Cuida la salud de tu mascota.">
+  <meta name="theme-color" content="#0d6b3e">
+
+  <!-- Preconnect a Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Pantalla de carga -->
+    <div id="loading-screen" class="loading-screen" role="status" aria-label="Cargando aplicación">
+      <div class="loading-paw" aria-hidden="true">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <path d="M24 4C13.5 4 6 12 6 22c0 8 4 15 10 18l-2 4h20l-2-4c6-3 10-10 10-18C42 12 34.5 4 24 4z" fill="#0d6b3e" opacity="0.3"/>
+          <circle cx="16" cy="18" r="3" fill="#0d6b3e"/>
+          <circle cx="32" cy="18" r="3" fill="#0d6b3e"/>
+          <circle cx="24" cy="14" r="3.5" fill="#0d6b3e"/>
+          <circle cx="20" cy="26" r="2.5" fill="#0d6b3e"/>
+          <circle cx="28" cy="26" r="2.5" fill="#0d6b3e"/>
+        </svg>
+      </div>
+      <div class="spinner" aria-hidden="true"></div>
+      <p class="loading-text">Cargando New Life...</p>
+    </div>
+
+    <!-- Navegación principal (visible solo en vistas internas) -->
+    <nav id="main-nav" class="main-nav" aria-label="Navegación principal" style="display:none;">
+      <div class="nav-inner">
+        <a href="#home" class="nav-logo" aria-label="Ir al inicio">
+          <svg width="28" height="28" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <path d="M24 4C13.5 4 6 12 6 22c0 8 4 15 10 18l-2 4h20l-2-4c6-3 10-10 10-18C42 12 34.5 4 24 4z" fill="currentColor" opacity="0.3"/>
+            <circle cx="16" cy="18" r="3" fill="currentColor"/>
+            <circle cx="32" cy="18" r="3" fill="currentColor"/>
+            <circle cx="24" cy="14" r="3.5" fill="currentColor"/>
+          </svg>
+          <span>New Life</span>
+        </a>
+        <div class="nav-links" id="nav-links">
+          <span id="nav-user-greeting" class="nav-greeting"></span>
+          <button id="nav-btn-dashboard" class="nav-link" style="display:none;">Mis Mascotas</button>
+          <button id="nav-btn-admin" class="nav-link" style="display:none;">Admin</button>
+          <button id="nav-btn-logout" class="nav-link nav-link-logout" style="display:none;">Cerrar Sesión</button>
+        </div>
+        <button id="nav-toggle" class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Contenedor de vistas -->
+    <main id="main-content" tabindex="-1"></main>
+  </div>
+
+  <!-- Toast container -->
+  <div id="toast-container" class="toast-container" aria-live="polite" aria-relevant="additions"></div>
+
+  <!-- Scripts -->
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/components/home.js"></script>
+  <script src="js/components/login.js"></script>
+  <script src="js/components/register.js"></script>
+  <script src="js/components/dashboard.js"></script>
+  <script src="js/components/pet-form.js"></script>
+  <script src="js/components/admin.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
