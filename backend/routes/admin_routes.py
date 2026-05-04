@@ -78,3 +78,36 @@ def seize_pet(pet_id: int) -> Tuple[Response, int]:
         "message": f"Orden de decomiso ejecutada para {pet.name}.",
         "pet": pet.to_dict(),
     }), 200
+
+
+@admin_bp.route("/pets/<int:pet_id>/rehabilitate", methods=["PUT"])
+@jwt_required
+@admin_required
+def rehabilitate_pet(pet_id: int) -> Tuple[Response, int]:
+    """Revierte una orden de decomiso y rehabilita una mascota (solo admin).
+
+    Marca la mascota como adoptable (adopted=True) y recalcula
+    su estado de cumplimiento según la lógica de negocio.
+
+    Headers:
+        Authorization: Bearer <token> (rol admin requerido)
+
+    Args:
+        pet_id: ID de la mascota a rehabilitar.
+
+    Returns:
+        200: Mascota rehabilitada exitosamente.
+        404: Mascota no encontrada.
+    """
+    from backend.services.pet_service import _calculate_status
+
+    pet = get_pet_by_id(pet_id)
+    if not pet:
+        return jsonify({"error": "Mascota no encontrada"}), 404
+
+    new_status = _calculate_status(pet)
+    update_pet(pet, {"adopted": True, "status": new_status})
+    return jsonify({
+        "message": f"Mascota {pet.name} rehabilitada exitosamente.",
+        "pet": pet.to_dict(),
+    }), 200

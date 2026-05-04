@@ -71,7 +71,21 @@ const AdminView = (() => {
     const rows = pets.map(item => {
       const statusClass = `semaforo-${item.status}`;
       const canSeize = item.status === 'incumplimiento' && item.adopted;
+      const isSeized = !item.adopted;  // decomisado = no adoptable
       const statusEmoji = item.status === 'certificado' ? '🟢' : item.status === 'gracia' ? '🟠' : '🔴';
+
+      let actionHtml = '';
+      if (canSeize) {
+        actionHtml = `<button class="btn btn-danger btn-sm btn-seize" data-id="${item.id}" aria-label="Decomisar ${Utils.escapeHTML(item.name)}">
+                        🚨 Decomisar
+                      </button>`;
+      } else if (isSeized) {
+        actionHtml = `<button class="btn btn-success btn-sm btn-rehabilitate" data-id="${item.id}" aria-label="Rehabilitar ${Utils.escapeHTML(item.name)}">
+                        ✅ Rehabilitar
+                      </button>`;
+      } else {
+        actionHtml = `<span class="semaforo-inhabilitado">—</span>`;
+      }
 
       return `
         <tr class="semaforo-row semaforo-row--${item.status}" data-id="${item.id}">
@@ -87,14 +101,7 @@ const AdminView = (() => {
               ${item.status_label || item.status}
             </span>
           </td>
-          <td>
-            ${canSeize
-              ? `<button class="btn btn-danger btn-sm btn-seize" data-id="${item.id}" aria-label="Decomisar ${Utils.escapeHTML(item.name)}">
-                  🚨 Decomisar
-                 </button>`
-              : `<span class="semaforo-inhabilitado">${item.adopted ? '—' : '🚫 Inhabilitado'}</span>`
-            }
-          </td>
+          <td>${actionHtml}</td>
         </tr>
       `;
     }).join('');
@@ -177,6 +184,27 @@ const AdminView = (() => {
             return;
           }
           Utils.showToast(`🚨 Orden de decomiso ejecutada: ${item.name} ha sido inhabilitado para adopción.`, 'error');
+          // Recargar datos desde la API
+          petsCache = await fetchPets();
+          refreshTable();
+        }
+      });
+    });
+
+    // Asignar eventos a botones de rehabilitación
+    document.querySelectorAll('.btn-rehabilitate').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        const id = parseInt(e.currentTarget.dataset.id, 10);
+        const item = petsCache.find(d => d.id === id);
+        if (!item) return;
+
+        if (confirm(`¿Está seguro de rehabilitar a "${item.name}" de ${item.owner_name}?\n\nEl animal volverá a estar disponible para adopción.`)) {
+          const { data, error } = await API.put(`/api/admin/pets/${id}/rehabilitate`);
+          if (error) {
+            Utils.showToast(error, 'error');
+            return;
+          }
+          Utils.showToast(`✅ ${item.name} ha sido rehabilitado exitosamente.`, 'success');
           // Recargar datos desde la API
           petsCache = await fetchPets();
           refreshTable();
