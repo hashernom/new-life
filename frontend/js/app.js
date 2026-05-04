@@ -177,10 +177,20 @@ const App = (() => {
         break;
 
       case path === ROUTES.PET_NEW:
+        if (Auth.isAdmin()) {
+          Utils.showToast('Los administradores no pueden registrar mascotas.', 'error');
+          navigate(ROUTES.DASHBOARD, false);
+          return;
+        }
         renderView('pet-new');
         break;
 
       case path.startsWith('#pet/edit/'):
+        if (Auth.isAdmin()) {
+          Utils.showToast('Los administradores no pueden editar mascotas.', 'error');
+          navigate(ROUTES.DASHBOARD, false);
+          return;
+        }
         renderView('pet-edit', path);
         break;
 

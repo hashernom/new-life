@@ -9,9 +9,8 @@ build/
 venv/
 env/
 
-# Flask / SQLite
-instance/
-*.db
+# Flask / SQLite — Render necesita crear la BD en producción
+# instance/ y *.db se excluyen SOLO en desarrollo local
 
 # IDE
 .vscode/

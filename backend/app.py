@@ -69,4 +69,4 @@ def create_app() -> Flask:
 
 if __name__ == "__main__":
     app: Flask = create_app()
-    app.run(debug=True, port=DEFAULT_PORT)
+    app.run(debug=False, host='0.0.0.0', port=DEFAULT_PORT)

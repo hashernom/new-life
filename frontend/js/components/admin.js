@@ -1,11 +1,15 @@
 /**
- * New Life — Panel de Administración
+ * New Life — Panel de las Autoridades
  * Solo accesible para usuarios con role 'admin'.
- * Muestra tablas de usuarios y mascotas del sistema.
+ * Tabla tipo semáforo con datos obtenidos de la API.
+ * Incluye botón de decomiso que persiste en la base de datos.
  */
 
 const AdminView = (() => {
   'use strict';
+
+  /** Cache local de datos para evitar re-fetch innecesario */
+  let petsCache = [];
 
   /**
    * Renderiza el panel de administración.
@@ -18,22 +22,15 @@ const AdminView = (() => {
       <div class="admin-page">
         <div class="admin-header">
           <div>
-            <h1>Panel de Administración</h1>
-            <p>Bienvenido, ${Utils.escapeHTML(user?.name || 'Admin')}</p>
+            <h1>Panel de las Autoridades</h1>
+            <p>Sistema de trazabilidad — ${Utils.escapeHTML(user?.name || 'Admin')}</p>
           </div>
           <button id="btn-admin-back" class="btn btn-ghost" aria-label="Volver al dashboard">← Volver al Dashboard</button>
         </div>
 
-        <section class="admin-section" aria-labelledby="users-section-title">
-          <h2 id="users-section-title">Usuarios</h2>
-          <div id="admin-users-container" aria-live="polite">
-            <div style="text-align:center;padding:2rem;">${Utils.spinnerHTML()}</div>
-          </div>
-        </section>
-
-        <section class="admin-section" aria-labelledby="pets-section-title">
-          <h2 id="pets-section-title">Mascotas</h2>
-          <div id="admin-pets-container" aria-live="polite">
+        <section class="admin-section" aria-labelledby="registry-section-title">
+          <h2 id="registry-section-title">Registro de Cumplimiento — Semáforo</h2>
+          <div id="admin-registry-container" aria-live="polite">
             <div style="text-align:center;padding:2rem;">${Utils.spinnerHTML()}</div>
           </div>
         </section>
@@ -42,152 +39,150 @@ const AdminView = (() => {
   }
 
   /**
-   * Inicializa los event listeners y carga los datos.
+   * Obtiene los datos de mascotas desde la API.
+   * @returns {Promise<Array>}
    */
-  function init() {
+  async function fetchPets() {
+    const { data, error } = await API.get('/api/admin/pets');
+    if (error) {
+      Utils.showToast(error, 'error');
+      return [];
+    }
+    return data?.pets || [];
+  }
+
+  /**
+   * Renderiza la tabla semáforo con datos de la API.
+   * @returns {string} HTML de la tabla.
+   */
+  function renderRegistryTable() {
+    const pets = petsCache;
+
+    if (pets.length === 0) {
+      return `
+        <div class="empty-state">
+          <span class="empty-icon" aria-hidden="true">📋</span>
+          <h3>No hay registros en el sistema</h3>
+          <p>Los ciudadanos comenzarán a registrar sus mascotas conforme entre en vigencia la Ley Ángel.</p>
+        </div>
+      `;
+    }
+
+    const rows = pets.map(item => {
+      const statusClass = `semaforo-${item.status}`;
+      const canSeize = item.status === 'incumplimiento' && item.adopted;
+      const statusEmoji = item.status === 'certificado' ? '🟢' : item.status === 'gracia' ? '🟠' : '🔴';
+
+      return `
+        <tr class="semaforo-row semaforo-row--${item.status}" data-id="${item.id}">
+          <td>${item.id}</td>
+          <td><strong>${Utils.escapeHTML(item.owner_name || 'Desconocido')}</strong></td>
+          <td>${Utils.escapeHTML(item.owner_email || '—')}</td>
+          <td>${Utils.escapeHTML(item.name)}</td>
+          <td>${Utils.escapeHTML(item.breed)}</td>
+          <td>${item.age} ${item.age === 1 ? 'año' : 'años'}</td>
+          <td>
+            <span class="semaforo-badge ${statusClass}">
+              ${statusEmoji}
+              ${item.status_label || item.status}
+            </span>
+          </td>
+          <td>
+            ${canSeize
+              ? `<button class="btn btn-danger btn-sm btn-seize" data-id="${item.id}" aria-label="Decomisar ${Utils.escapeHTML(item.name)}">
+                  🚨 Decomisar
+                 </button>`
+              : `<span class="semaforo-inhabilitado">${item.adopted ? '—' : '🚫 Inhabilitado'}</span>`
+            }
+          </td>
+        </tr>
+      `;
+    }).join('');
+
+    const certified = pets.filter(d => d.status === 'certificado').length;
+    const gracia = pets.filter(d => d.status === 'gracia').length;
+    const incumplimiento = pets.filter(d => d.status === 'incumplimiento').length;
+
+    return `
+      <div class="semaforo-summary">
+        <div class="semaforo-summary-item semaforo-summary--verde">
+          <span class="semaforo-summary-count">${certified}</span>
+          <span class="semaforo-summary-label">Certificados</span>
+        </div>
+        <div class="semaforo-summary-item semaforo-summary--naranja">
+          <span class="semaforo-summary-count">${gracia}</span>
+          <span class="semaforo-summary-label">Periodo de gracia</span>
+        </div>
+        <div class="semaforo-summary-item semaforo-summary--rojo">
+          <span class="semaforo-summary-count">${incumplimiento}</span>
+          <span class="semaforo-summary-label">Incumplimiento</span>
+        </div>
+      </div>
+
+      <div class="table-wrapper">
+        <table role="table" aria-label="Registro de cumplimiento">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Propietario</th>
+              <th scope="col">Email</th>
+              <th scope="col">Mascota</th>
+              <th scope="col">Raza</th>
+              <th scope="col">Edad</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows}
+          </tbody>
+        </table>
+      </div>
+    `;
+  }
+
+  /**
+   * Inicializa los event listeners y carga datos.
+   */
+  async function init() {
     document.getElementById('btn-admin-back')?.addEventListener('click', () => {
       App.navigate('#dashboard');
     });
 
-    loadUsers();
-    loadPets();
+    // Cargar datos desde la API
+    petsCache = await fetchPets();
+    refreshTable();
   }
 
   /**
-   * Carga la lista de usuarios desde la API.
+   * Refresca la tabla y re-asigna eventos.
    */
-  async function loadUsers() {
-    const container = document.getElementById('admin-users-container');
+  function refreshTable() {
+    const container = document.getElementById('admin-registry-container');
     if (!container) return;
 
-    const { data, error } = await API.get('/api/admin/users');
+    container.innerHTML = renderRegistryTable();
 
-    if (error) {
-      container.innerHTML = `
-        <div class="table-wrapper" role="alert">
-          <p style="padding:1rem;color:var(--red-500);">${Utils.escapeHTML(error)}</p>
-        </div>
-      `;
-      return;
-    }
+    // Asignar eventos a botones de decomiso
+    document.querySelectorAll('.btn-seize').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        const id = parseInt(e.currentTarget.dataset.id, 10);
+        const item = petsCache.find(d => d.id === id);
+        if (!item) return;
 
-    const users = data?.users || [];
-
-    if (users.length === 0) {
-      container.innerHTML = `<p style="color:var(--gray-500);">No hay usuarios registrados.</p>`;
-      return;
-    }
-
-    container.innerHTML = `
-      <div class="table-wrapper">
-        <table role="table" aria-label="Lista de usuarios del sistema">
-          <thead>
-            <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Email</th>
-              <th scope="col">Rol</th>
-              <th scope="col">Registro</th>
-              <th scope="col">Mascotas</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${users.map(user => `
-              <tr>
-                <td>${user.id}</td>
-                <td>${Utils.escapeHTML(user.name)}</td>
-                <td>${Utils.escapeHTML(user.email)}</td>
-                <td>${user.role === 'admin' ? '🔑 Admin' : '👤 Usuario'}</td>
-                <td>${formatDate(user.created_at)}</td>
-                <td>${user.pet_count ?? 0}</td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      </div>
-    `;
-  }
-
-  /**
-   * Carga la lista de mascotas desde la API (admin).
-   */
-  async function loadPets() {
-    const container = document.getElementById('admin-pets-container');
-    if (!container) return;
-
-    const { data, error } = await API.get('/api/admin/pets');
-
-    if (error) {
-      container.innerHTML = `
-        <div class="table-wrapper" role="alert">
-          <p style="padding:1rem;color:var(--red-500);">${Utils.escapeHTML(error)}</p>
-        </div>
-      `;
-      return;
-    }
-
-    const pets = data?.pets || [];
-    const complianceRate = data?.compliance_rate ?? 0;
-
-    if (pets.length === 0) {
-      container.innerHTML = `<p style="color:var(--gray-500);">No hay mascotas registradas.</p>`;
-      return;
-    }
-
-    container.innerHTML = `
-      <div class="compliance-rate" aria-label="Tasa de cumplimiento">
-        <span aria-hidden="true">📊</span> Tasa de cumplimiento: <strong>${complianceRate}%</strong>
-      </div>
-      <div class="table-wrapper">
-        <table role="table" aria-label="Lista de mascotas del sistema">
-          <thead>
-            <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Dueño</th>
-              <th scope="col">Edad</th>
-              <th scope="col">Raza</th>
-              <th scope="col">Estado</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${pets.map(pet => `
-              <tr>
-                <td>${pet.id}</td>
-                <td>${Utils.escapeHTML(pet.name)}</td>
-                <td>${Utils.escapeHTML(pet.owner_name || '—')}</td>
-                <td>${pet.age} ${pet.age === 1 ? 'año' : 'años'}</td>
-                <td>${Utils.escapeHTML(pet.breed)}</td>
-                <td>
-                  <span class="compliance-badge ${pet.is_spayed ? 'cumple' : 'no-cumple'}" aria-label="${pet.is_spayed ? 'Cumple con esterilización' : 'No cumple con esterilización'}">
-                    ${pet.is_spayed ? '🟢 Cumple' : '🔴 No cumple'}
-                  </span>
-                </td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      </div>
-    `;
-  }
-
-  /**
-   * Formatea una fecha ISO a formato legible.
-   * @param {string} isoString
-   * @returns {string}
-   */
-  function formatDate(isoString) {
-    if (!isoString) return '—';
-    try {
-      const date = new Date(isoString);
-      return date.toLocaleDateString('es-CO', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
+        if (confirm(`¿Está seguro de emitir la orden de decomiso para "${item.name}" de ${item.owner_name}?\n\nEsta acción inhabilitará al animal para adopción.`)) {
+          const { data, error } = await API.put(`/api/admin/pets/${id}/seize`);
+          if (error) {
+            Utils.showToast(error, 'error');
+            return;
+          }
+          Utils.showToast(`🚨 Orden de decomiso ejecutada: ${item.name} ha sido inhabilitado para adopción.`, 'error');
+          // Recargar datos desde la API
+          petsCache = await fetchPets();
+          refreshTable();
+        }
       });
-    } catch {
-      return isoString;
-    }
+    });
   }
 
   return { render, init };

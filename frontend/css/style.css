@@ -48,10 +48,18 @@
   --red-400: #f87171;
   --red-500: #ef4444;
   --red-600: #dc2626;
+  --red-700: #b91c1c;
+  --red-800: #991b1b;
 
   --amber-50: #fffbeb;
   --amber-400: #fbbf24;
   --amber-500: #f59e0b;
+  --amber-600: #d97706;
+
+  --orange-50: #fff7ed;
+  --orange-400: #fb923c;
+  --orange-500: #f97316;
+  --orange-600: #ea580c;
 
   /* Sombras */
   --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
@@ -390,6 +398,23 @@ a:hover {
   color: var(--green-600);
 }
 
+/* Estadística impactante */
+.hero-stat {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--red-600);
+  background: var(--red-50);
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1rem;
+  border-left: 4px solid var(--red-500);
+  line-height: 1.4;
+}
+
+.hero-stat strong {
+  color: var(--red-700);
+}
+
 .hero-subtitle {
   font-size: 1.1rem;
   color: var(--gray-500);
@@ -488,6 +513,81 @@ a:hover {
   line-height: 1.6;
 }
 
+/* ============================================
+   Aliados Estratégicos
+   ============================================ */
+.allies {
+  padding: 4rem 1.5rem;
+  background: var(--green-50);
+}
+
+.allies-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.allies-title {
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  color: var(--green-800);
+  margin-bottom: 0.5rem;
+}
+
+.allies-subtitle {
+  text-align: center;
+  color: var(--gray-500);
+  font-size: 0.95rem;
+  margin-bottom: 3rem;
+}
+
+.allies-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.ally-card {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  background: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--green-100);
+  transition: all var(--transition);
+}
+
+.ally-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--green-300);
+}
+
+.ally-shield {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 1rem;
+}
+
+.ally-shield svg {
+  width: 100%;
+  height: 100%;
+}
+
+.ally-card h3 {
+  font-size: 1rem;
+  color: var(--green-800);
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+.ally-card p {
+  font-size: 0.85rem;
+  color: var(--gray-500);
+}
+
 /* Footer */
 .home-footer {
   text-align: center;
@@ -495,6 +595,12 @@ a:hover {
   font-size: 0.8rem;
   color: var(--gray-400);
   border-top: 1px solid var(--gray-100);
+}
+
+.home-footer-legal {
+  margin-top: 0.3rem;
+  font-size: 0.75rem;
+  color: var(--gray-400);
 }
 
 /* ============================================
@@ -705,6 +811,22 @@ a:hover {
   border-color: var(--gray-300);
 }
 
+/* Botón legal (para el formulario de compromiso) */
+.btn-legal {
+  background: var(--green-800);
+  color: var(--white);
+  box-shadow: 0 1px 3px rgba(5, 150, 105, 0.2);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 0.85rem 2rem;
+}
+
+.btn-legal:hover {
+  background: var(--green-900);
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+  transform: translateY(-1px);
+}
+
 .btn-sm {
   padding: 0.45rem 1rem;
   font-size: 0.825rem;
@@ -793,6 +915,117 @@ a:hover {
   display: flex;
   gap: 0.75rem;
   align-items: center;
+}
+
+/* ============================================
+   Demo Banner (Efecto Guau)
+   ============================================ */
+.demo-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.5rem;
+  font-size: 0.925rem;
+  font-weight: 500;
+  animation: bannerSlideIn 0.4s ease;
+  border: 1px solid transparent;
+}
+
+@keyframes bannerSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.demo-banner-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.demo-banner-text {
+  flex: 1;
+  line-height: 1.5;
+}
+
+.demo-banner--felicidad {
+  background: var(--green-50);
+  color: var(--green-700);
+  border-color: var(--green-200);
+}
+
+.demo-banner--alerta {
+  background: var(--amber-50);
+  color: var(--amber-600);
+  border-color: #fde68a;
+}
+
+.demo-banner--sancion {
+  background: var(--red-50);
+  color: var(--red-700);
+  border-color: var(--red-200);
+}
+
+.demo-banner--sancion .demo-banner-text {
+  font-size: 0.9rem;
+}
+
+.demo-banner--sancion .demo-banner-text strong {
+  font-size: 1rem;
+}
+
+/* ============================================
+   Demo Controls (Botones Trampa)
+   ============================================ */
+.demo-controls {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 999;
+  background: var(--white);
+  padding: 0.5rem;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--gray-100);
+}
+
+.demo-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gray-50);
+}
+
+.demo-btn:hover {
+  transform: scale(1.15);
+  box-shadow: var(--shadow-md);
+}
+
+.demo-btn--felicidad:hover {
+  background: var(--green-100);
+}
+
+.demo-btn--alerta:hover {
+  background: var(--amber-50);
+}
+
+.demo-btn--sancion:hover {
+  background: var(--red-100);
 }
 
 /* Stats Bar */
@@ -955,136 +1188,430 @@ a:hover {
 }
 
 /* ============================================
-   Pet Form Page
+   Pet Form Page — Estilo Legal
    ============================================ */
 .form-page {
-  max-width: 560px;
+  max-width: 640px;
   margin: 0 auto;
   animation: fadeIn 0.4s ease;
 }
 
-.form-page h1 {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  color: var(--green-800);
-  margin-bottom: 1.5rem;
-  font-weight: 400;
-}
-
-.form-card {
-  background: var(--white);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
-  padding: 2rem;
-  border: 1px solid var(--gray-100);
-}
-
-.form-actions {
-  display: flex;
-  gap: 0.75rem;
-  margin-top: 1.5rem;
-}
-
-/* ============================================
-   Admin Page
-   ============================================ */
-.admin-page {
-  animation: fadeIn 0.4s ease;
-}
-
-.admin-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
+.form-legal-header {
+  text-align: center;
   margin-bottom: 2rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--gray-100);
+  border-bottom: 2px solid var(--green-800);
 }
 
-.admin-header h1 {
+.form-legal-seal {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.form-legal-header h1 {
   font-family: var(--font-display);
   font-size: 1.5rem;
   color: var(--green-800);
   font-weight: 400;
+  margin-bottom: 0.5rem;
 }
 
-.admin-header p {
-  color: var(--gray-500);
-  font-size: 0.875rem;
-  margin-top: 0.15rem;
-}
-
-.admin-section {
-  margin-bottom: 2.5rem;
-}
-
-.admin-section h2 {
-  font-size: 1.1rem;
-  color: var(--gray-700);
-  margin-bottom: 1rem;
-  font-weight: 600;
-}
-
-/* Compliance Rate Badge */
-.compliance-rate {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  background: var(--green-50);
-  border-radius: var(--radius-full);
+.form-legal-subtitle {
   font-size: 0.85rem;
-  color: var(--green-700);
+  color: var(--gray-500);
   font-weight: 600;
-  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.form-legal-ref {
+  font-size: 0.8rem;
+  color: var(--gray-400);
+  line-height: 1.5;
+}
+
+.form-card--legal {
+  border: 1.5px solid var(--green-200);
+  border-top: 4px solid var(--green-800);
+}
+
+.legal-fieldset {
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.legal-fieldset legend {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--green-800);
+  padding: 0 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* Checkbox legal gigante */
+.legal-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  background: var(--off-white);
+}
+
+.legal-checkbox:hover {
+  border-color: var(--green-400);
+  background: var(--green-50);
+}
+
+.legal-checkbox-input {
+  display: none;
+}
+
+.legal-checkbox-mark {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  border: 2px solid var(--gray-300);
+  border-radius: 4px;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  margin-top: 2px;
+}
+
+.legal-checkbox-input:checked + .legal-checkbox-mark {
+  background: var(--green-700);
+  border-color: var(--green-700);
+}
+
+.legal-checkbox-input:checked + .legal-checkbox-mark::after {
+  content: '✓';
+  color: var(--white);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.legal-checkbox-text {
+  font-size: 0.875rem;
+  color: var(--gray-700);
+  line-height: 1.5;
+}
+
+.legal-checkbox-text strong {
+  color: var(--green-800);
 }
 
 /* ============================================
-   Tables
+   Certificate Modal
    ============================================ */
-.table-wrapper {
-  overflow-x: auto;
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1.5rem;
+  opacity: 0;
+  transition: opacity var(--transition);
+  pointer-events: none;
+}
+
+.modal-overlay--visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.certificate-modal {
   background: var(--white);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-xs);
-  border: 1px solid var(--gray-100);
-}
-
-table {
+  border-radius: var(--radius-lg);
+  max-width: 560px;
   width: 100%;
-  border-collapse: collapse;
-  font-size: 0.875rem;
+  box-shadow: var(--shadow-xl);
+  animation: modalIn 0.4s ease;
+  overflow: hidden;
 }
 
-thead {
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.certificate {
+  padding: 2rem;
+}
+
+.certificate-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--green-800);
+}
+
+.certificate-seal {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.certificate-header h2 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--green-800);
+  letter-spacing: 0.05em;
+  font-weight: 400;
+}
+
+.certificate-subtitle {
+  font-size: 0.8rem;
+  color: var(--gray-500);
+  margin-top: 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.certificate-body {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.certificate-issued {
+  font-size: 0.85rem;
+  color: var(--gray-600);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.certificate-declares {
+  font-size: 1.1rem;
+  color: var(--green-800);
+  margin-bottom: 1rem;
+  letter-spacing: 0.1em;
+}
+
+.certificate-text {
+  font-size: 0.9rem;
+  color: var(--gray-700);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.certificate-id {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--green-50);
+  border-radius: var(--radius-sm);
+  margin-bottom: 0.75rem;
+}
+
+.certificate-id-label {
+  font-size: 0.8rem;
+  color: var(--gray-500);
+  font-weight: 600;
+}
+
+.certificate-id-value {
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: var(--green-800);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.certificate-date {
+  font-size: 0.8rem;
+  color: var(--gray-400);
+  margin-bottom: 1.5rem;
+}
+
+.certificate-signatures {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding-top: 1rem;
+}
+
+.certificate-signature {
+  text-align: center;
+}
+
+.sig-line {
+  width: 120px;
+  height: 1px;
+  background: var(--gray-300);
+  margin: 0 auto 0.5rem;
+}
+
+.certificate-signature p {
+  font-size: 0.8rem;
+  color: var(--gray-600);
+  font-weight: 600;
+}
+
+.certificate-signature small {
+  font-weight: 400;
+  color: var(--gray-400);
+}
+
+.certificate-footer {
+  text-align: center;
+  padding: 1rem 2rem;
+  background: var(--green-50);
+  border-top: 1px solid var(--green-100);
+}
+
+.certificate-footer p {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+  line-height: 1.5;
+}
+
+.certificate-actions {
+  padding: 1rem 2rem;
+  text-align: center;
+  border-top: 1px solid var(--gray-100);
+}
+
+/* ============================================
+   Admin — Tabla Semáforo
+   ============================================ */
+.semaforo-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.semaforo-summary-item {
+  text-align: center;
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--gray-100);
+  background: var(--white);
+}
+
+.semaforo-summary-count {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  line-height: 1.2;
+  display: block;
+}
+
+.semaforo-summary-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.semaforo-summary--verde .semaforo-summary-count {
+  color: var(--green-600);
+}
+
+.semaforo-summary--verde .semaforo-summary-label {
+  color: var(--green-700);
+}
+
+.semaforo-summary--naranja .semaforo-summary-count {
+  color: var(--orange-500);
+}
+
+.semaforo-summary--naranja .semaforo-summary-label {
+  color: var(--orange-600);
+}
+
+.semaforo-summary--rojo .semaforo-summary-count {
+  color: var(--red-500);
+}
+
+.semaforo-summary--rojo .semaforo-summary-label {
+  color: var(--red-600);
+}
+
+/* Filas de semáforo */
+.semaforo-row--certificado {
   background: var(--green-50);
 }
 
-th {
-  text-align: left;
-  padding: 0.85rem 1rem;
-  font-weight: 600;
-  color: var(--green-700);
+.semaforo-row--certificado:hover td {
+  background: #d8f5e0;
+}
+
+.semaforo-row--gracia {
+  background: var(--amber-50);
+}
+
+.semaforo-row--gracia:hover td {
+  background: #fef3c7;
+}
+
+.semaforo-row--incumplimiento {
+  background: var(--red-50);
+}
+
+.semaforo-row--incumplimiento:hover td {
+  background: #fecaca;
+}
+
+.semaforo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-full);
   font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  border-bottom: 2px solid var(--green-200);
+  font-weight: 600;
+  white-space: nowrap;
 }
 
-td {
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid var(--gray-100);
-  color: var(--gray-700);
+.semaforo-badge.semaforo-certificado {
+  background: var(--green-100);
+  color: var(--green-700);
 }
 
-tr:last-child td {
-  border-bottom: none;
+.semaforo-badge.semaforo-gracia {
+  background: #fde68a;
+  color: var(--amber-600);
 }
 
-tr:hover td {
-  background: var(--gray-50);
+.semaforo-badge.semaforo-incumplimiento {
+  background: var(--red-100);
+  color: var(--red-700);
+}
+
+.semaforo-inhabilitado {
+  color: var(--gray-400);
+  font-size: 0.85rem;
+  font-style: italic;
 }
 
 /* ============================================
@@ -1196,6 +1723,14 @@ tr:hover td {
   .stats-bar {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  .allies-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .semaforo-summary {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
@@ -1272,6 +1807,10 @@ tr:hover td {
     width: 100%;
   }
 
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
   .admin-header {
     flex-direction: column;
     align-items: flex-start;
@@ -1300,6 +1839,26 @@ tr:hover td {
     grid-template-columns: 1fr;
     gap: 0.75rem;
   }
+
+  .allies-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .semaforo-summary {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .certificate-signatures {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .demo-controls {
+    bottom: 1rem;
+    right: 1rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1327,4 +1886,266 @@ tr:hover td {
   .pet-card .card-actions .btn {
     width: 100%;
   }
+
+  .certificate {
+    padding: 1.25rem;
+  }
+
+  .certificate-header h2 {
+    font-size: 1.25rem;
+  }
+}
+
+/* =============================================
+   ADMIN DASHBOARD — Summary Cards & Stats
+   ============================================= */
+
+.admin-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.summary-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.summary-icon {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.summary-number {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.summary-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 0.25rem;
+}
+
+.summary-card--total .summary-number { color: var(--primary); }
+.summary-card--cumplen .summary-number { color: var(--green-600); }
+.summary-card--alerta .summary-number { color: var(--amber-600); }
+.summary-card--sancion .summary-number { color: var(--red-600); }
+
+/* Admin Stats Blocks */
+.admin-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+.stat-block h3 {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+
+.stat-row:last-child {
+  border-bottom: none;
+}
+
+.stat-value {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.stat-value--danger {
+  color: var(--red-600);
+}
+
+/* Legal References */
+.legal-refs {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.legal-refs li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.legal-refs li:last-child {
+  border-bottom: none;
+}
+
+.legal-refs li strong {
+  color: var(--primary);
+}
+
+/* Admin Pets Table */
+.admin-pets-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.admin-pets-table th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  background: var(--surface-alt);
+  border-bottom: 2px solid var(--border);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.admin-pets-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.admin-pets-table tbody tr:hover {
+  background: var(--surface-alt);
+}
+
+/* Responsive Admin Dashboard */
+@media (max-width: 900px) {
+  .admin-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .admin-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-summary {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .summary-number {
+    font-size: 1.5rem;
+  }
+}
+
+/* --- ESTILOS PARA LA NUEVA ILUSTRACIÓN DEL HERO --- */
+.hero-illustration {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.hero-image-wrapper {
+  position: relative;
+  max-width: 420px;
+  width: 100%;
+}
+
+.hero-photo {
+  width: 100%;
+  height: auto;
+  border-radius: 24px;
+  box-shadow: 0 25px 50px -12px rgba(5, 150, 105, 0.25);
+  object-fit: cover;
+  border: 6px solid #ffffff;
+  aspect-ratio: 4/5; /* Mantiene una proporción elegante */
+}
+
+.floating-badge {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  animation: float 4s ease-in-out infinite;
+  border: 1px solid rgba(5, 150, 105, 0.1);
+}
+
+.badge-top {
+  top: -20px;
+  right: -40px;
+  animation-delay: 0s;
+}
+
+.badge-bottom {
+  bottom: 30px;
+  left: -50px;
+  animation-delay: 2s; /* Desfase para que no floten al mismo tiempo */
+}
+
+.badge-icon {
+  font-size: 1.8rem;
+  background: #ecfdf5;
+  padding: 10px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.badge-text strong {
+  color: #065f46;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.badge-text span {
+  color: #4b5563;
+  font-size: 0.8rem;
+  margin-top: 2px;
+}
+
+/* Animación de flotación suave */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Responsividad para pantallas más pequeñas en tu presentación */
+@media (max-width: 768px) {
+  .badge-top { right: -10px; top: -10px; }
+  .badge-bottom { left: -10px; bottom: 10px; }
+  .floating-badge { transform: scale(0.85); }
 }

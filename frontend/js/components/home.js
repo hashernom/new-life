@@ -1,6 +1,7 @@
 /**
- * New Life — Vista de Inicio (Landing Page)
- * Hero section con ilustración, features y call-to-action.
+ * New Life — Landing Page Institucional
+ * Copywriting con datos duros de Bucaramanga.
+ * Incluye sección de Aliados Estratégicos (Alcaldía, Policía, Zoonosis).
  */
 
 const HomeView = (() => {
@@ -17,14 +18,18 @@ const HomeView = (() => {
           <div class="hero-content">
             <div class="hero-text">
               <div class="hero-badge" aria-hidden="true">
-                <span>🐾</span> Bienestar Animal
+                <span>🐾</span> Ley Ángel — Bucaramanga
               </div>
               <h1 class="hero-title">
-                Cuida a tu <br><em>mejor amigo</em>
+                Protejamos a quienes <br><em>no tienen voz</em>
               </h1>
+              <p class="hero-stat">
+                <strong>Entre 15 y 20 casos</strong> de maltrato y abandono <strong>cada día</strong> en Bucaramanga.
+              </p>
               <p class="hero-subtitle">
-                Registra a tu mascota, lleva el control de su esterilización 
-                y contribuye a una tenencia responsable.
+                Somos el sistema obligatorio de registro y seguimiento canino.
+                Un esfuerzo conjunto entre la ciudadanía y las autoridades para
+                garantizar la tenencia responsable y erradicar el abandono animal.
               </p>
               <div class="hero-actions">
                 <a href="#register" class="btn btn-primary btn-lg" aria-label="Crear cuenta gratuita">
@@ -36,86 +41,93 @@ const HomeView = (() => {
               </div>
             </div>
             <div class="hero-illustration" aria-hidden="true">
-              <svg viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Círculo decorativo de fondo -->
-                <circle cx="160" cy="160" r="140" fill="#d1fae5" opacity="0.5"/>
-                <circle cx="160" cy="160" r="110" fill="#a7f3d0" opacity="0.3"/>
-                
-                <!-- Huella grande -->
-                <path d="M160 200c-22 0-40-18-40-40s18-40 40-40 40 18 40 40-18 40-40 40z" fill="#059669" opacity="0.15"/>
-                
-                <!-- Cuerpo del perro (silueta estilizada) -->
-                <ellipse cx="160" cy="180" rx="55" ry="40" fill="#065f46" opacity="0.12"/>
-                <circle cx="160" cy="130" r="30" fill="#065f46" opacity="0.12"/>
-                
-                <!-- Orejas -->
-                <ellipse cx="138" cy="108" rx="12" ry="18" fill="#065f46" opacity="0.12" transform="rotate(-15 138 108)"/>
-                <ellipse cx="182" cy="108" rx="12" ry="18" fill="#065f46" opacity="0.12" transform="rotate(15 182 108)"/>
-                
-                <!-- Ojos -->
-                <circle cx="150" cy="128" r="4" fill="#065f46" opacity="0.2"/>
-                <circle cx="170" cy="128" r="4" fill="#065f46" opacity="0.2"/>
-                
-                <!-- Nariz -->
-                <ellipse cx="160" cy="138" rx="5" ry="3.5" fill="#065f46" opacity="0.2"/>
-                
-                <!-- Patas -->
-                <ellipse cx="130" cy="210" rx="10" ry="6" fill="#065f46" opacity="0.1"/>
-                <ellipse cx="190" cy="210" rx="10" ry="6" fill="#065f46" opacity="0.1"/>
-                
-                <!-- Corazón flotante -->
-                <path d="M220 100c0-8 6-14 14-14s14 6 14 14c0 8-14 20-14 20s-14-12-14-20z" fill="#059669" opacity="0.2">
-                  <animate attributeName="opacity" values="0.2;0.4;0.2" dur="2s" repeatCount="indefinite"/>
-                  <animateTransform attributeName="transform" type="translate" values="0,0;0,-8;0,0" dur="2s" repeatCount="indefinite"/>
-                </path>
-                
-                <!-- Estrella decorativa -->
-                <text x="100" y="90" font-size="16" fill="#34d399" opacity="0.3">
-                  ✦
-                  <animate attributeName="opacity" values="0.3;0.6;0.3" dur="3s" repeatCount="indefinite"/>
-                </text>
-                <text x="230" y="180" font-size="12" fill="#34d399" opacity="0.2">
-                  ✦
-                  <animate attributeName="opacity" values="0.2;0.5;0.2" dur="2.5s" repeatCount="indefinite"/>
-                </text>
-              </svg>
+              <div class="hero-image-wrapper">
+                <img class="hero-photo" src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Perrito rescatado en Bucaramanga" />
+              </div>
             </div>
           </div>
         </section>
 
         <section class="features" aria-label="Características">
           <div class="features-inner">
-            <h2 class="features-title">¿Por qué New Life?</h2>
-            <p class="features-subtitle">Todo lo que necesitas para el cuidado responsable de tu mascota</p>
+            <h2 class="features-title">¿Por qué es necesario este sistema?</h2>
+            <p class="features-subtitle">Datos que exigen acción inmediata</p>
             <div class="features-grid">
               <div class="feature-card">
                 <div class="feature-icon" aria-hidden="true">📋</div>
-                <h3>Registro Simple</h3>
-                <p>Registra a tus mascotas en segundos. Solo necesitas nombre, edad y raza.</p>
+                <h3>Registro Obligatorio</h3>
+                <p>Cada mascota debe ser registrada en el sistema de trazabilidad.
+                Es el primer paso para garantizar su bienestar y el cumplimiento de la Ley Ángel.</p>
               </div>
               <div class="feature-card">
-                <div class="feature-icon" aria-hidden="true">✅</div>
-                <h3>Control de Esterilización</h3>
-                <p>Lleva el seguimiento del estado de esterilización de cada mascota.</p>
+                <div class="feature-icon" aria-hidden="true">⚖️</div>
+                <h3>Compromiso Legal</h3>
+                <p>Al registrar, firmas un compromiso de esterilización obligatoria.
+                Las autoridades tienen la facultad de hacer cumplir la ley.</p>
               </div>
               <div class="feature-card">
-                <div class="feature-icon" aria-hidden="true">📊</div>
-                <h3>Panel de Administración</h3>
-                <p>Los administradores pueden ver estadísticas globales y gestionar el sistema.</p>
+                <div class="feature-icon" aria-hidden="true">🛡️</div>
+                <h3>Trazabilidad Total</h3>
+                <p>La Policía Ambiental y el Centro de Zoonosis de Bucaramanga
+                tienen acceso al sistema para vigilancia y control.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Aliados Estratégicos -->
+        <section class="allies" aria-label="Aliados estratégicos">
+          <div class="allies-inner">
+            <h2 class="allies-title">Aliados Estratégicos</h2>
+            <p class="allies-subtitle">Trabajando juntos por el bienestar animal</p>
+            <div class="allies-grid">
+              <div class="ally-card">
+                <div class="ally-shield" aria-hidden="true">
+                  <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="40" cy="40" r="36" stroke="#065f46" stroke-width="2" fill="#ecfdf5"/>
+                    <path d="M40 16c-8 0-16 4-20 10v8c0 16 8 28 20 32 12-4 20-16 20-32v-8c-4-6-12-10-20-10z" fill="#059669" opacity="0.15"/>
+                    <text x="40" y="46" text-anchor="middle" font-size="14" font-weight="bold" fill="#065f46">A</text>
+                  </svg>
+                </div>
+                <h3>Alcaldía de Bucaramanga</h3>
+                <p>Secretaría de Salud</p>
+              </div>
+              <div class="ally-card">
+                <div class="ally-shield" aria-hidden="true">
+                  <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="40" cy="40" r="36" stroke="#065f46" stroke-width="2" fill="#ecfdf5"/>
+                    <path d="M40 16c-8 0-16 4-20 10v8c0 16 8 28 20 32 12-4 20-16 20-32v-8c-4-6-12-10-20-10z" fill="#059669" opacity="0.15"/>
+                    <text x="40" y="46" text-anchor="middle" font-size="14" font-weight="bold" fill="#065f46">PN</text>
+                  </svg>
+                </div>
+                <h3>Policía Nacional</h3>
+                <p>Policía Ambiental</p>
+              </div>
+              <div class="ally-card">
+                <div class="ally-shield" aria-hidden="true">
+                  <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="40" cy="40" r="36" stroke="#065f46" stroke-width="2" fill="#ecfdf5"/>
+                    <path d="M40 16c-8 0-16 4-20 10v8c0 16 8 28 20 32 12-4 20-16 20-32v-8c-4-6-12-10-20-10z" fill="#059669" opacity="0.15"/>
+                    <text x="40" y="46" text-anchor="middle" font-size="12" font-weight="bold" fill="#065f46">CZ</text>
+                  </svg>
+                </div>
+                <h3>Centro de Zoonosis</h3>
+                <p>Bucaramanga</p>
               </div>
             </div>
           </div>
         </section>
 
         <footer class="home-footer">
-          <p>New Life &copy; ${new Date().getFullYear()} — Registro de Mascotas</p>
+          <p>New Life &copy; ${new Date().getFullYear()} — Sistema de Registro y Trazabilidad Canina</p>
+          <p class="home-footer-legal">En cumplimiento de la Ley Ángel. Bucaramanga, Colombia.</p>
         </footer>
       </div>
     `;
   }
 
   /**
-   * Inicializa la vista de inicio (no necesita event listeners complejos).
+   * Inicializa la vista de inicio.
    */
   function init() {
     // No se necesita lógica adicional para la landing page
